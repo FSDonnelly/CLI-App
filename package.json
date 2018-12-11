@@ -1,0 +1,23 @@
+{
+  "name": "cli-app",
+  "version": "1.0.0",
+  "description": "bamazon mysql app",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FSDonnelly/CLI-App.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FSDonnelly/CLI-App/issues"
+  },
+  "homepage": "https://github.com/FSDonnelly/CLI-App#readme",
+  "dependencies": {
+    "@mysql/xdevapi": "^8.0.13",
+    "inquirer": "^6.2.1"
+  }
+}
