@@ -1,29 +1,35 @@
 //require inquirer
 var inquirer = require('inquirer');
 //require mySQL
-const mysqlx = require('@mysql/xdevapi');
-// Connect to server on localhost
-mysqlx
-  .getSession({
-    user: 'user',
-    password: 'password',
-    host: 'localhost',
-    port: '33060'
-  })
-  .then(function (session) {
-    var db = session.getSchema('test');
-    // Use the collection 'my_collection'
-    var myColl = db.getCollection('animals_db');
-    // Specify wich document to find with Collection.find() and
-    // fetch it from the database with .execute()
-    return myColl
-      .find('name like :param')
-      .limit(1)
-      .bind('param', 'S%')
-      .execute(function (doc) {
-        console.log(doc);
-      });
-  })
-  .catch(function (err) {
-    // Handle error
+const mysql = require('mysql');
+// require console.table
+require("console.table");
+// create the connection information for the sql database
+var connection = mysql.createConnection({
+  host: "localhost",
+
+  // Your port; if not 3306
+  port: 3306,
+
+  // Your username
+  user: "root",
+
+  // Your password
+  password: "password",
+  database: "bamazon_db"
+});
+// connect to the mysql server and sql database
+connection.connect(function(err) {
+  if (err) throw err;
+  console.log("connected as id " + connection.threadId);
+  afterConnection();
+});
+
+function afterConnection() {
+  connection.query("SELECT * FROM products", function(err, res) {
+    if (err) throw err;
+    console.table(res);
+    
+    connection.end();
   });
+}
