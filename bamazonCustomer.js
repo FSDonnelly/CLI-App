@@ -1,35 +1,56 @@
-//require inquirer
+//require mysql and inquirer
+var mysql = require('mysql');
 var inquirer = require('inquirer');
-//require mySQL
-const mysql = require('mysql');
-// require console.table
 require("console.table");
-// create the connection information for the sql database
+//create connection to db
 var connection = mysql.createConnection({
   host: "localhost",
-
-  // Your port; if not 3306
   port: 3306,
-
-  // Your username
   user: "root",
-
-  // Your password
   password: "password",
   database: "bamazon_db"
-});
-// connect to the mysql server and sql database
-connection.connect(function(err) {
+})
+
+//Action when connected to server.
+connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
-  afterConnection();
+  readProducts();
 });
-
-function afterConnection() {
-  connection.query("SELECT * FROM products", function(err, res) {
+//Displays all the products for sale in a list.
+function readProducts() {
+  connection.query("SELECT * FROM products", function (err, res) {
     if (err) throw err;
+    console.log("Displaying products from Bamazon inventory:");
     console.table(res);
-    
+    startInquirer(res);
+  });
+}
+//Start asking customer which product and quantity.
+function startInquirer(x) {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'product',
+      message: 'Which product would you like to purchase?(Enter product ID#)'
+    },
+    {
+      type: 'input',
+      name: 'quantity',
+      message: 'Enter the amount you would like to purchase?'
+    }
+  ]).then(function (inquirerRes) {
+    let query = "UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?";
+    connection.query(query, [inquirerRes.stock_quantity, x[inquirerRes.product - 1].item_id], function (err) {
+      if (err) throw err;
+      if (x[inquirerRes.product - 1].stock_quantity <= 0 || inquirerRes.stock_quantity > x[inquirerRes.product - 1].stock_quantity) {
+        console.log('Insufficient quantity!');
+      } else {
+        let total = ((x[inquirerRes.product - 1].price) * inquirerRes.stock_quantity).toFixed(2);
+        console.log("The total of your purchase is $" + total +
+          "\nSuccessfully purchased " + inquirerRes.stock_quantity + ' copy/copies of ' + x[inquirerRes.product - 1].product_name + '.');
+      }
+    });
     connection.end();
   });
 }

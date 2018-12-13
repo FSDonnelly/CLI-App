@@ -43,5 +43,5 @@ INSERT INTO products(product_name, department_name, price, stock_quantity)
 VALUES ("Samsung Laptop for Web Development", "Electronics", 144.99, 35);
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
-VALUES ("Extra Strength Tylenol 150 tablet Bottle", "Medication", 34.99, 35);
+VALUES ("Extra Strength Tylenol 150 tablet Bottle", "Medication", 4.99, 35);
 
