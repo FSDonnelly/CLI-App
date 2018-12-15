@@ -43,6 +43,7 @@ function start(){
         case "Add New Product": addNewProduct();
         break;
         case "End Session": console.log('Bye!');
+         connection.end()
       }
     });
   }
@@ -68,7 +69,7 @@ function start(){
     console.log('----------------------------------------------------------------------------------------------------')
   
     for(var i = 0; i<res.length;i++){
-      if(res[i].stock_quantity <= 3){
+      if(res[i].stock_quantity <= 5){
       console.log("ID: " + res[i].item_id + " | " + "Product: " + res[i].product_name + " | " + "Department: " + res[i].department_name + " | " + "Price: " + res[i].price + " | " + "QTY: " + res[i].stock_quantity);
       console.log('--------------------------------------------------------------------------------------------------');
       }
@@ -177,5 +178,4 @@ function start(){
       start();
     });
   }
-  
-  start();
+ 
