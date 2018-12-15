@@ -45,3 +45,24 @@ VALUES ("Samsung Laptop for Web Development", "Electronics", 144.99, 35);
 INSERT INTO products(product_name, department_name, price, stock_quantity)
 VALUES ("Extra Strength Tylenol 150 tablet Bottle", "Medication", 4.99, 35);
 
+CREATE TABLE Departments(
+    department_id MEDIUMINT AUTO_INCREMENT NOT NULL,
+    department_name VARCHAR(50) NOT NULL,
+    over_head_costs  DECIMAL(10,2) NOT NULL,
+    product_sales DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY(department_id));
+    
+    SELECT*FROM Departments;
+
+INSERT INTO Departments(department_name, over_head_costs, product_sales)
+VALUES 
+    ('Electronics', 20000.00, 12000.00),
+    ('Furniture', 30000.00, 15000.00),
+    ('Medication', 3000.00, 12000.00),
+    ('Food/Drink', 1200.00, 15000.00);
+   
+SELECT B. department_id, A.department_name, b.over_head_costs, SUM(A.product_sales) AS total_profit, SUM(A.product_sales) - B.over_head_costs AS Profit
+FROM products A, departments B
+WHERE a.department_name = b.department_name
+GROUP BY department_name
+ORDER BY department_id;

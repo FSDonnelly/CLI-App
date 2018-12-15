@@ -9,7 +9,9 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
 Instructions
 1) load the "bamazon.sql" file in your MySQL Workbench and change the "password" on all the .js file to match your password for MySQL.
 2) To run the challenge #1 type "node bamazonCustomer.js" in the terminal.
-3)To run the challenge #2 type "node bamazonManger.js" in the terminal.
+3) To run the challenge #2 type "node bamazonManger.js" in the terminal.
+3) To run the challenge #2 type "node bamazonSupervisor.js" in the terminal.
+4) Screenshots of all the functioning challenges can be found in the "Screenshots" folder.
 
 Challenge #1: Customer View (Minimum Requirement)
 

@@ -50,7 +50,13 @@ function start(){
     connection.query('SELECT * FROM Departments', function(err, res){
       if(err) throw err;
       console.log('>>>>>>Product Sales by Department<<<<<<');
-      console.table(res)
+      console.log('----------------------------------------------------------------------------------------------------')
+  
+      for(var i = 0; i<res.length;i++){
+        console.log("Department ID: " + res[i].department_id + " | " + "Department Name: " + res[i].department_name + " | " + "Over Head Cost: " + (res[i].over_head_costs).toFixed(2) + " | " + "Product Sales: " + (res[i].product_sales).toFixed(2) + " | " + "Total Profit: " + (res[i].product_sales - res[i].over_head_costs).toFixed(2));
+        console.log('--------------------------------------------------------------------------------------------------')
+      }
+      // console.table(res)
       })
       start();
     }
@@ -59,6 +65,7 @@ function start(){
     //create a new department
     function createNewDept(){
       console.log('>>>>>>Creating New Department<<<<<<');
+      
       //prompts to add deptName and numbers. if no value is then by default = 0
       inquirer.prompt([
       {
@@ -86,11 +93,11 @@ function start(){
       }
       ]).then(function(ans){
           console.log(ans)
-        connection.query('INSERT INTO Departments SET ?',{
+        connection.query('INSERT INTO Departments SET ?',[{
           department_name: ans.department_name,
           over_head_costs: ans.over_head_costs,
           product_sales: ans.product_sales
-        }, function(err, res){
+        }], function(err, res){
           if(err) throw err;
           console.log(res)
           console.log('Another department was added.');
