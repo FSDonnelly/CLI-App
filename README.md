@@ -8,7 +8,8 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
 
 Instructions
 
-To run the challenge #1 type "node bamazonCustomer.js" in the terminal.
+#To run the challenge #1 type "node bamazonCustomer.js" in the terminal.
+#To run the challenge #2 type "node bamazonManger.js" in the terminal.
 
 Challenge #1: Customer View (Minimum Requirement)
 
